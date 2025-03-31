@@ -23,6 +23,7 @@ class HomeScreen extends StatelessWidget {
             _buildFeatureTile(context, "Settings", "/settings", LucideIcons.settings, Colors.blueAccent),
             _buildFeatureTile(context, "Voice Control", "/voiceControl", LucideIcons.mic, Colors.tealAccent),
             _buildFeatureTile(context, "Head Tracking", "/headTracking", LucideIcons.eye, Colors.pinkAccent),
+                        _buildFeatureTile(context, "Gesture Control", "/gestureTracking", LucideIcons.eye, Color.fromARGB(255, 3, 249, 3)),
             _buildFeatureTile(context, "About", "/about", LucideIcons.info, Colors.orangeAccent),
           ],
         ),

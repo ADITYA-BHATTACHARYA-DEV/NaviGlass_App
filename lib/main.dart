@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'screens/about_screen.dart';
 import 'screens/control_panel.dart';
+import 'screens/gesture_calibration.dart';
 import 'screens/head_tracking_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/settings.dart';
@@ -26,7 +27,8 @@ class SpaceControlApp extends StatelessWidget {
         "/settings": (context) => SettingsScreen(),
         "/voiceControl": (context) => VoiceControlScreen(),
         "/headTracking": (context) => HeadTrackingScreen(),
-        "/about": (context) => AboutScreen(),
+        "/about": (context) => SpaceDashboard(),
+         "/gestureTracking": (context) => GestureCalibrationScreen(),
       },
     );
   }
