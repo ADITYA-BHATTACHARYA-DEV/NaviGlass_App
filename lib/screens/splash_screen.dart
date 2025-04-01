@@ -64,18 +64,27 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                 children: [
                   Icon(LucideIcons.rocket, size: 80, color: Colors.purpleAccent), // Space-themed Icon
                   SizedBox(height: 20),
-                  Text(
-                    "NAVI GLASS",
-                    style: TextStyle(
-                      fontSize: 34,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      letterSpacing: 2.0,
-                      shadows: [
-                        Shadow(color: Colors.purpleAccent, blurRadius: 20),
-                      ],
-                    ),
+                  
+                  // Added Image Below Icon
+                  Image.asset(
+                    'assets/logo.png',  // Replace with your actual image path
+                    width: 240,
+                    height: 240,
                   ),
+                  // SizedBox(height: 15),
+                  
+                  // Text(
+                  //   "NAVI GLASS",
+                  //   style: TextStyle(
+                  //     fontSize: 34,
+                  //     fontWeight: FontWeight.bold,
+                  //     color: Colors.white,
+                  //     letterSpacing: 2.0,
+                  //     shadows: [
+                  //       Shadow(color: Colors.purpleAccent, blurRadius: 20),
+                  //     ],
+                  //   ),
+                  // ),
                   SizedBox(height: 30),
                   
                   // Glowing Start Button
