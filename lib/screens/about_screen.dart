@@ -54,16 +54,16 @@ class SpaceDashboard extends StatelessWidget {
             
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "User Explorer",
-                style: TextStyle(
-                  color: Colors.purpleAccent,
-                  fontSize: isSmallScreen ? 10 : 12,
-                  letterSpacing: 2,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 4),
+              // Text(
+              //   "User Explorer",
+              //   style: TextStyle(
+              //     color: Colors.purpleAccent,
+              //     fontSize: isSmallScreen ? 10 : 12,
+              //     letterSpacing: 2,
+              //     fontWeight: FontWeight.bold,
+              //   ),
+              // ),
+              SizedBox(height: 8),
               Text(
                 "Profile Dashboard",
                 style: TextStyle(
@@ -74,10 +74,14 @@ class SpaceDashboard extends StatelessWidget {
               ),
             ],
           ),
+       
           CircleAvatar(
-            radius: isSmallScreen ? 20 : 24,
+            
+            radius: isSmallScreen ? 10 : 14,
             backgroundColor: Colors.purpleAccent.withOpacity(0.2),
+            
             child: Icon(
+              
               LucideIcons.user,
               color: Colors.purpleAccent,
               size: isSmallScreen ? 18 : 20,
