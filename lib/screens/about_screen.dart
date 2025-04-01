@@ -44,15 +44,18 @@ class SpaceDashboard extends StatelessWidget {
 
   Widget _buildAppBar(bool isSmallScreen) {
     return Padding(
+      
       padding: EdgeInsets.symmetric(horizontal: isSmallScreen ? 0 : 8),
       child: Row(
+        
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
+        children: [ SizedBox(height: 10),
           Column(
+            
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "GALACTIC EXPLORER",
+                "User Explorer",
                 style: TextStyle(
                   color: Colors.purpleAccent,
                   fontSize: isSmallScreen ? 10 : 12,
@@ -62,7 +65,7 @@ class SpaceDashboard extends StatelessWidget {
               ),
               SizedBox(height: 4),
               Text(
-                "Space Dashboard",
+                "Profile Dashboard",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: isSmallScreen ? 20 : 24,
@@ -192,10 +195,10 @@ class SpaceDashboard extends StatelessWidget {
 
   Widget _buildRecentPlaces(BuildContext context, bool isSmallScreen) {
     final recentPlaces = [
-      {"name": "Andromeda Galaxy", "date": "Today", "icon": LucideIcons.globe},
-      {"name": "Mars Colony", "date": "Yesterday", "icon": LucideIcons.mapPin},
-      {"name": "Jupiter's Moons", "date": "2 days ago", "icon": LucideIcons.moon},
-      {"name": "Saturn Rings", "date": "1 week ago", "icon": LucideIcons.circle},
+      {"name": "Lleida", "date": "Today", "icon": LucideIcons.globe},
+      {"name": "Dwarka Colony", "date": "Yesterday", "icon": LucideIcons.mapPin},
+      {"name": "Prayagraj", "date": "2 days ago", "icon": LucideIcons.moon},
+      {"name": "Kumbh Mela", "date": "1 week ago", "icon": LucideIcons.circle},
     ];
 
     return Column(

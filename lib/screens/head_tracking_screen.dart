@@ -37,23 +37,29 @@ class _HeadTrackingScreenState extends State<HeadTrackingScreen> {
           SingleChildScrollView(
             padding: EdgeInsets.all(20),
             child: Column(
+              
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                 SizedBox(height: 20),
                 // Header
                 Row(
                   children: [
+                   
                     IconButton(
                       icon: Icon(LucideIcons.chevronLeft, color: Colors.white),
                       onPressed: () => Navigator.pop(context),
                     ),
                     SizedBox(width: 10),
-                    Text(
-                      "HEAD TRACKING",
-                      style: TextStyle(
-                        color: Colors.purpleAccent,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.5,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "HEAD TRACKING",
+                        style: TextStyle(
+                          color: Colors.purpleAccent,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.5,
+                        ),
                       ),
                     ),
                   ],
@@ -62,45 +68,51 @@ class _HeadTrackingScreenState extends State<HeadTrackingScreen> {
 
                 // First-Person View Preview
                 Container(
-                  height: 200,
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.3),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.purpleAccent.withOpacity(0.3)),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        _showFPV ? LucideIcons.eye : LucideIcons.eyeOff,
-                        size: 40,
-                        color: _showFPV ? Colors.greenAccent : Colors.grey,
-                      ),
-                      SizedBox(height: 10),
-                      Text(
-                        _showFPV ? "FPV ACTIVE" : "FPV DISABLED",
-                        style: TextStyle(
-                          color: _showFPV ? Colors.greenAccent : Colors.grey,
-                          fontSize: 16,
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () => setState(() => _showFPV = !_showFPV),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.purpleAccent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        child: Text(
-                          _showFPV ? "DISABLE FPV" : "ENABLE FPV",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+  height: 200,
+  padding: EdgeInsets.all(16), // Added padding to prevent overflow
+  decoration: BoxDecoration(
+    color: Colors.black.withOpacity(0.3),
+    borderRadius: BorderRadius.circular(12),
+    border: Border.all(color: Colors.purpleAccent.withOpacity(0.3)),
+  ),
+  child: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Icon(
+        _showFPV ? LucideIcons.eye : LucideIcons.eyeOff,
+        size: 40,
+        color: _showFPV ? Colors.greenAccent : Colors.grey,
+      ),
+      SizedBox(height: 10),
+      Text(
+        _showFPV ? "FPV ACTIVE" : "FPV DISABLED",
+        style: TextStyle(
+          color: _showFPV ? Colors.greenAccent : Colors.grey,
+          fontSize: 16,
+        ),
+      ),
+      SizedBox(height: 15), // Adjusted spacing
+      SizedBox(
+        width: double.infinity, // Makes button expand properly inside container
+        child: ElevatedButton(
+          onPressed: () => setState(() => _showFPV = !_showFPV),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.purpleAccent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            padding: EdgeInsets.symmetric(vertical: 12), // Proper padding for button text
+          ),
+          child: Text(
+            _showFPV ? "DISABLE FPV" : "ENABLE FPV",
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+      ),
+    ],
+  ),
+),
+
                 SizedBox(height: 30),
 
                 // View Mode Selection

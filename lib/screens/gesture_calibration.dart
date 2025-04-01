@@ -70,15 +70,20 @@ class _GestureCalibrationScreenState extends State<GestureCalibrationScreen> {
   }
 
   Widget _buildAppBar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        IconButton(
-          icon: Icon(LucideIcons.chevronLeft, color: Colors.white),
-          onPressed: () => Navigator.pop(context),
-        ),
-        Text(
+    return Padding(
+  padding: EdgeInsets.only(top: 40, left: 20, right: 20), // Added top and side padding
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      IconButton(
+        icon: Icon(LucideIcons.chevronLeft, color: Colors.white, size: 28),
+        onPressed: () => Navigator.pop(context),
+      ),
+      Expanded(
+        child: Text(
           "GESTURE CALIBRATION",
+          textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.purpleAccent,
             fontSize: 18,
@@ -86,9 +91,12 @@ class _GestureCalibrationScreenState extends State<GestureCalibrationScreen> {
             letterSpacing: 1.5,
           ),
         ),
-        SizedBox(width: 48), // Balance the row
-      ],
-    );
+      ),
+      SizedBox(width: 48), // Balances the row, keeping the center text aligned
+    ],
+  ),
+);
+
   }
 
   Widget _buildSpaceBackground() {
