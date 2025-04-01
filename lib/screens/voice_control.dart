@@ -10,19 +10,19 @@ class VoiceControlScreen extends StatefulWidget {
 
 class _VoiceControlScreenState extends State<VoiceControlScreen> {
   final List<Map<String, dynamic>> _chatMessages = [
-    {"text": "Welcome to Space Voice Control 🚀", "isUser": false, "time": "Just now"},
+    {"text": "Welcome to Voice Control 🚀", "isUser": false, "time": "Just now"},
     {"text": "Try saying: 'Navigate to Jupiter' 🪐", "isUser": false, "time": "Just now"},
-    {"text": "Or 'Show me the Andromeda galaxy' 🌌", "isUser": false, "time": "Just now"},
-    {"text": "Find nearby exoplanets", "isUser": true, "time": "2 min ago"},
-    {"text": "Found 3 potentially habitable exoplanets within 100 light years", "isUser": false, "time": "2 min ago"},
+    {"text": "Or 'Tell me the Andromeda galaxy' 🌌", "isUser": false, "time": "Just now"},
+    {"text": "Find nearby cafes", "isUser": true, "time": "2 min ago"},
+    {"text": "Found 3 potentially good restaurants within 100 metres", "isUser": false, "time": "2 min ago"},
   ];
 
   final List<String> _recentQueries = [
-    "Current ISS position",
-    "Solar flare activity",
+    "Current humidity position",
+    "Weather activity",
     "Next lunar eclipse",
-    "Mars weather report",
-    "Nearest black hole"
+    "Todays' weather report",
+    "Nearest playzone"
   ];
 
   void _sendMessage(String message) {
@@ -75,7 +75,7 @@ class _VoiceControlScreenState extends State<VoiceControlScreen> {
                   ),
                   Center(
                     child: Text(
-                      "Cosmic Control Panel", 
+                      "Voice Control Panel", 
                       style: TextStyle(
                         fontSize: 22, 
                         color: Colors.white, 
@@ -107,11 +107,11 @@ class _VoiceControlScreenState extends State<VoiceControlScreen> {
                     ),
                     _buildSettingItem(
                       icon: LucideIcons.languages,
-                      title: "Cosmic Language",
+                      title: "Hindi Language",
                       trailing: DropdownButton<String>(
                         dropdownColor: Colors.deepPurple.shade900,
                         value: "Universal Basic",
-                        items: ["Universal Basic", "Galactic Standard", "Quantum Syntax"]
+                        items: ["Universal Basic", "Basic Standard", "Quantum Syntax"]
                             .map((e) => DropdownMenuItem<String>(
                                   child: Text(e, style: TextStyle(color: Colors.white)),
                                   value: e,
@@ -301,7 +301,7 @@ class _VoiceControlScreenState extends State<VoiceControlScreen> {
             children: [
               AppBar(
                 title: Text(
-                  "Cosmic Voice Control",
+                  " Voice Control",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -325,26 +325,32 @@ class _VoiceControlScreenState extends State<VoiceControlScreen> {
                   child: Column(
                     children: [
                       Container(
-                        margin: EdgeInsets.symmetric(horizontal: 20),
+                        margin: EdgeInsets.symmetric(horizontal: 30),
                         decoration: BoxDecoration(
                           color: Colors.black.withOpacity(0.3),
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(color: Colors.purpleAccent.withOpacity(0.2)),
                         ),
-                        child: TabBar(
-                          indicator: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            gradient: LinearGradient(
-                              colors: [Colors.purpleAccent, Colors.blueAccent],
-                            ),
-                          ),
-                          labelColor: Colors.white,
-                          unselectedLabelColor: Colors.white70,
-                          tabs: [
-                            Tab(text: "Conversation"),
-                            Tab(text: "Recent Queries"),
-                          ],
-                        ),
+                       child: Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), // Adds spacing around the TabBar
+  child: TabBar(
+    indicator: BoxDecoration(
+      borderRadius: BorderRadius.circular(10),
+      gradient: LinearGradient(
+        colors: [Colors.purpleAccent, Colors.blueAccent],
+      ),
+    ),
+    indicatorSize: TabBarIndicatorSize.tab, // Ensures indicator matches the tab size
+    labelColor: Colors.white,
+    unselectedLabelColor: Colors.white70,
+    labelPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0), // Adds padding inside each tab
+    tabs: const [
+      Tab(text: "Conversation"),
+      Tab(text: "Recent Queries"),
+    ],
+  ),
+),
+
                       ),
                       SizedBox(height: 10),
                       Expanded(
@@ -462,7 +468,7 @@ class _VoiceControlScreenState extends State<VoiceControlScreen> {
                         child: TextField(
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
-                            hintText: "Speak your cosmic command...",
+                            hintText: "Speak your command...",
                             hintStyle: TextStyle(color: Colors.white54),
                             border: InputBorder.none,
                             suffixIcon: Icon(LucideIcons.send, color: Colors.purpleAccent),
