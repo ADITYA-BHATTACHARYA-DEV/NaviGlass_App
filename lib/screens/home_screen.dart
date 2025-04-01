@@ -22,9 +22,12 @@ class HomeScreen extends StatelessWidget {
             _buildFeatureTile(context, "Control Panel", "/controlPanel", LucideIcons.cpu, Colors.deepPurpleAccent),
             _buildFeatureTile(context, "Settings", "/settings", LucideIcons.settings, Colors.blueAccent),
             _buildFeatureTile(context, "Voice Control", "/voiceControl", LucideIcons.mic, Colors.tealAccent),
-            _buildFeatureTile(context, "Head Tracking", "/headTracking", LucideIcons.eye, Colors.pinkAccent),
+            _buildFeatureTile(context, "Head Tracking", "/headTracking", LucideIcons.scanFace
+            , Colors.pinkAccent),
                         _buildFeatureTile(context, "Gesture Control", "/gestureTracking", LucideIcons.eye, Color.fromARGB(255, 3, 249, 3)),
             _buildFeatureTile(context, "About", "/about", LucideIcons.info, Colors.orangeAccent),
+            _buildFeatureTile(context, "Show KMLs", "/about", LucideIcons.bellRing, Color.fromARGB(255, 200, 0, 255)),
+            _buildFeatureTile(context, "Add KMLs", "/about", LucideIcons.bookMarked, Color.fromARGB(255, 254, 3, 171)),
           ],
         ),
       ),
