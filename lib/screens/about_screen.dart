@@ -49,7 +49,7 @@ class SpaceDashboard extends StatelessWidget {
       child: Row(
         
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [ SizedBox(height: 10),
+        children: [ SizedBox(height: 30),
           Column(
             
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,7 +115,7 @@ class SpaceDashboard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "SPACE WEATHER",
+                  "Local Weather",
                   style: TextStyle(
                     color: Colors.purpleAccent,
                     fontSize: isSmallScreen ? 10 : 12,
@@ -144,19 +144,19 @@ class SpaceDashboard extends StatelessWidget {
               children: [
                 _buildWeatherMetric(
                   icon: LucideIcons.sun,
-                  value: "Solar Flare: Low",
+                  value: "Daylight: Low",
                   color: Colors.orangeAccent,
                   isSmallScreen: isSmallScreen,
                 ),
                 _buildWeatherMetric(
                   icon: LucideIcons.waves,
-                  value: "Radiation: 3.2 μSv",
+                  value: "Humidity: 8%",
                   color: Colors.greenAccent,
                   isSmallScreen: isSmallScreen,
                 ),
                 _buildWeatherMetric(
                   icon: LucideIcons.compass,
-                  value: "Magnetic: Stable",
+                  value: "Wind: Stable",
                   color: Colors.blueAccent,
                   isSmallScreen: isSmallScreen,
                 ),
@@ -266,9 +266,9 @@ class SpaceDashboard extends StatelessWidget {
 
   Widget _buildQueryHistory(bool isSmallScreen) {
     final queries = [
-      {"query": "Show black holes near Earth", "response": "Found 3 candidates"},
-      {"query": "Current ISS position", "response": "Position displayed"},
-      {"query": "Next solar eclipse", "response": "April 8, 2024"},
+      {"query": "Show shops near Delhi", "response": "Found 3 candidates"},
+      {"query": "Direction to move", "response": "Position displayed"},
+      {"query": "What I am looking at it?", "response": "April 8, 2024"},
     ];
 
     return Column(
@@ -382,7 +382,7 @@ class SpaceDashboard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "ABOUT GALACTIC EXPLORER",
+          "ABOUT NAVIGLASS",
           style: TextStyle(
             color: Colors.purpleAccent,
             fontSize: isSmallScreen ? 10 : 12,
@@ -401,9 +401,9 @@ class SpaceDashboard extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                "Explore the cosmos with our Liquid Galaxy integration. "
-                "Navigate through space, view celestial objects, and get real-time "
-                "space weather data all in one place.",
+                "Explore the World with our Liquid Galaxy integration. "
+                "Navigate through directions, view places and monuments, and get real-time "
+                "Every vision data all in one place.",
                 style: TextStyle(
                   color: Colors.white,
                   height: 1.5,
@@ -416,7 +416,7 @@ class SpaceDashboard extends StatelessWidget {
                 children: [
                   _buildFeatureIcon(
                     LucideIcons.globe,
-                    "Planetary Data",
+                    "Location Data",
                     isSmallScreen: isSmallScreen,
                   ),
                   _buildFeatureIcon(
