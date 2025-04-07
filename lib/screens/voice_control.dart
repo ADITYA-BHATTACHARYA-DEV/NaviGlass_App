@@ -9,10 +9,16 @@ class VoiceControlScreen extends StatefulWidget {
 }
 
 class _VoiceControlScreenState extends State<VoiceControlScreen> {
+  final Color _primaryColor = Color(0xFF6A11CB);
+  final Color _secondaryColor = Color(0xFF2575FC);
+  final Color _accentColor = Color(0xFF00F2FE);
+  final Color _textColor = Colors.white;
+  final Color _bgColor = Color(0xFF0F0F1B);
+
   final List<Map<String, dynamic>> _chatMessages = [
     {"text": "Welcome to Voice Control 🚀", "isUser": false, "time": "Just now"},
     {"text": "Try saying: 'Navigate to Jupiter' 🪐", "isUser": false, "time": "Just now"},
-    {"text": "Or 'Tell me the Andromeda galaxy' 🌌", "isUser": false, "time": "Just now"},
+    {"text": "Or 'Tell me about the Andromeda galaxy' 🌌", "isUser": false, "time": "Just now"},
     {"text": "Find nearby cafes", "isUser": true, "time": "2 min ago"},
     {"text": "Found 3 potentially good restaurants within 100 metres", "isUser": false, "time": "2 min ago"},
   ];
@@ -21,7 +27,7 @@ class _VoiceControlScreenState extends State<VoiceControlScreen> {
     "Current humidity position",
     "Weather activity",
     "Next lunar eclipse",
-    "Todays' weather report",
+    "Today's weather report",
     "Nearest playzone"
   ];
 
@@ -50,7 +56,7 @@ class _VoiceControlScreenState extends State<VoiceControlScreen> {
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [Colors.deepPurple.shade900, Colors.black87],
+              colors: [_primaryColor.withOpacity(0.9), _bgColor],
             ),
             borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
           ),
@@ -68,19 +74,19 @@ class _VoiceControlScreenState extends State<VoiceControlScreen> {
                       height: 5,
                       margin: EdgeInsets.only(bottom: 15),
                       decoration: BoxDecoration(
-                        color: Colors.purpleAccent.withOpacity(0.5),
+                        color: _accentColor.withOpacity(0.5),
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                   ),
                   Center(
                     child: Text(
-                      "Voice Control Panel", 
+                      "Voice Control Panel",
                       style: TextStyle(
-                        fontSize: 22, 
-                        color: Colors.white, 
+                        fontSize: 22,
+                        color: _textColor,
                         fontWeight: FontWeight.bold,
-                        letterSpacing: 1.2
+                        letterSpacing: 1.2,
                       ),
                     ),
                   ),
@@ -92,7 +98,7 @@ class _VoiceControlScreenState extends State<VoiceControlScreen> {
                       trailing: Slider(
                         value: 0.7,
                         onChanged: (value) {},
-                        activeColor: Colors.purpleAccent,
+                        activeColor: _accentColor,
                         inactiveColor: Colors.blueGrey,
                       ),
                     ),
@@ -102,18 +108,18 @@ class _VoiceControlScreenState extends State<VoiceControlScreen> {
                       trailing: Switch(
                         value: true,
                         onChanged: (bool value) {},
-                        activeColor: Colors.purpleAccent,
+                        activeColor: _accentColor,
                       ),
                     ),
                     _buildSettingItem(
                       icon: LucideIcons.languages,
-                      title: "Hindi Language",
+                      title: "Language",
                       trailing: DropdownButton<String>(
-                        dropdownColor: Colors.deepPurple.shade900,
+                        dropdownColor: _bgColor,
                         value: "Universal Basic",
                         items: ["Universal Basic", "Basic Standard", "Quantum Syntax"]
                             .map((e) => DropdownMenuItem<String>(
-                                  child: Text(e, style: TextStyle(color: Colors.white)),
+                                  child: Text(e, style: TextStyle(color: _textColor)),
                                   value: e,
                                 ))
                             .toList(),
@@ -125,25 +131,25 @@ class _VoiceControlScreenState extends State<VoiceControlScreen> {
                   _buildSettingsSection("Visual Theme", [
                     _buildSettingItem(
                       icon: LucideIcons.palette,
-                      title: "Nebula Colors",
+                      title: "Theme Colors",
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          _buildColorOption(Colors.deepPurple),
+                          _buildColorOption(_primaryColor),
                           SizedBox(width: 10),
-                          _buildColorOption(Colors.indigo),
+                          _buildColorOption(_secondaryColor),
                           SizedBox(width: 10),
-                          _buildColorOption(Colors.blueAccent),
+                          _buildColorOption(_accentColor),
                         ],
                       ),
                     ),
                     _buildSettingItem(
                       icon: LucideIcons.star,
-                      title: "Stellar Animation",
+                      title: "Animations",
                       trailing: Switch(
                         value: true,
                         onChanged: (bool value) {},
-                        activeColor: Colors.purpleAccent,
+                        activeColor: _accentColor,
                       ),
                     ),
                   ]),
@@ -151,12 +157,12 @@ class _VoiceControlScreenState extends State<VoiceControlScreen> {
                   _buildSettingsSection("Advanced", [
                     _buildSettingItem(
                       icon: LucideIcons.satellite,
-                      title: "Quantum Connection",
+                      title: "Connection",
                       trailing: Text("Optimal", style: TextStyle(color: Colors.greenAccent)),
                     ),
                     _buildSettingItem(
                       icon: LucideIcons.cpu,
-                      title: "AI Processing Power",
+                      title: "AI Processing",
                       trailing: Text("78%", style: TextStyle(color: Colors.orangeAccent)),
                     ),
                   ]),
@@ -177,17 +183,17 @@ class _VoiceControlScreenState extends State<VoiceControlScreen> {
         Text(
           title.toUpperCase(),
           style: TextStyle(
-            color: Colors.purpleAccent.withOpacity(0.7),
-            fontSize: 10,
+            color:    _textColor,
+            fontSize: 12,
             letterSpacing: 1.5,
           ),
         ),
         SizedBox(height: 10),
         Container(
           decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.3),
+            color: _bgColor.withOpacity(0.5),
             borderRadius: BorderRadius.circular(15),
-            border: Border.all(color: Colors.purpleAccent.withOpacity(0.2)),
+            border: Border.all(color: _accentColor.withOpacity(0.2)),
           ),
           child: Column(children: children),
         ),
@@ -200,9 +206,9 @@ class _VoiceControlScreenState extends State<VoiceControlScreen> {
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
       child: Row(
         children: [
-          Icon(icon, color: Colors.purpleAccent, size: 20),
+          Icon(icon, color: _accentColor, size: 20),
           SizedBox(width: 15),
-          Expanded(child: Text(title, style: TextStyle(color: Colors.white, fontSize: 10))),
+          Expanded(child: Text(title, style: TextStyle(color: _textColor, fontSize: 14))),
           trailing,
         ],
       ),
@@ -216,7 +222,7 @@ class _VoiceControlScreenState extends State<VoiceControlScreen> {
       decoration: BoxDecoration(
         color: color,
         shape: BoxShape.circle,
-        border: Border.all(color: Colors.white.withOpacity(0.5)),
+        border: Border.all(color: _textColor.withOpacity(0.5)),
       ),
     );
   }
@@ -224,20 +230,15 @@ class _VoiceControlScreenState extends State<VoiceControlScreen> {
   Widget _buildSpaceBackground() {
     return Stack(
       children: [
-        // Deep space gradient
         Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [
-                Colors.deepPurple.shade900,
-                Colors.black,
-              ],
+              colors: [_bgColor, _primaryColor.withOpacity(0.3)],
             ),
           ),
         ),
-        // Stars
         for (int i = 0; i < 50; i++)
           Positioned(
             left: Random().nextDouble() * MediaQuery.of(context).size.width,
@@ -246,12 +247,11 @@ class _VoiceControlScreenState extends State<VoiceControlScreen> {
               width: Random().nextDouble() * 2 + 1,
               height: Random().nextDouble() * 2 + 1,
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(Random().nextDouble() * 0.5 + 0.5),
+                color: _textColor.withOpacity(Random().nextDouble() * 0.5 + 0.5),
                 shape: BoxShape.circle,
               ),
             ),
           ),
-        // Nebula effect
         Positioned(
           right: -100,
           top: -100,
@@ -261,10 +261,7 @@ class _VoiceControlScreenState extends State<VoiceControlScreen> {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               gradient: RadialGradient(
-                colors: [
-                  Colors.purple.withOpacity(0.1),
-                  Colors.transparent,
-                ],
+                colors: [_primaryColor.withOpacity(0.2), Colors.transparent],
               ),
             ),
           ),
@@ -278,10 +275,7 @@ class _VoiceControlScreenState extends State<VoiceControlScreen> {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               gradient: RadialGradient(
-                colors: [
-                  Colors.blueAccent.withOpacity(0.1),
-                  Colors.transparent,
-                ],
+                colors: [_secondaryColor.withOpacity(0.2), Colors.transparent],
               ),
             ),
           ),
@@ -293,7 +287,7 @@ class _VoiceControlScreenState extends State<VoiceControlScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: _bgColor,
       body: Stack(
         children: [
           _buildSpaceBackground(),
@@ -301,9 +295,9 @@ class _VoiceControlScreenState extends State<VoiceControlScreen> {
             children: [
               AppBar(
                 title: Text(
-                  " Voice Control",
+                  "VOICE CONTROL",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: _textColor,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 1.2,
@@ -314,125 +308,93 @@ class _VoiceControlScreenState extends State<VoiceControlScreen> {
                 elevation: 0,
                 actions: [
                   IconButton(
-                    icon: Icon(LucideIcons.settings, color: Colors.purpleAccent),
+                    icon: Icon(LucideIcons.settings, color: _accentColor),
                     onPressed: _openSettings,
                   ),
                 ],
               ),
               Expanded(
                 child: DefaultTabController(
-                  length: 2,
+                  length: 4,
                   child: Column(
                     children: [
                       Container(
-                        margin: EdgeInsets.symmetric(horizontal: 30),
+                        margin: EdgeInsets.symmetric(horizontal: 5),
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.3),
+                          color: _bgColor.withOpacity(0.5),
                           borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: Colors.purpleAccent.withOpacity(0.2)),
+                          border: Border.all(color: _accentColor.withOpacity(0.2)),
                         ),
-                       child: Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), // Adds spacing around the TabBar
-  child: TabBar(
-    indicator: BoxDecoration(
-      borderRadius: BorderRadius.circular(10),
-      gradient: LinearGradient(
-        colors: [Colors.purpleAccent, Colors.blueAccent],
-      ),
-    ),
-    indicatorSize: TabBarIndicatorSize.tab, // Ensures indicator matches the tab size
-    labelColor: Colors.white,
-    unselectedLabelColor: Colors.white70,
-    labelPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0), // Adds padding inside each tab
-    tabs: const [
-      Tab(text: "Conversation"),
-      Tab(text: "Recent Queries"),
-    ],
-  ),
-),
-
+                        child: TabBar(
+                          indicator: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            gradient: LinearGradient(
+                              colors: [_primaryColor, _secondaryColor],
+                            ),
+                          ),
+                          labelColor: _textColor,
+                          unselectedLabelColor: _textColor.withOpacity(0.7),
+                          tabs: [
+                            Tab(text: "Conversation"),
+                            Tab(text: "Recent Queries"),
+                          ],
+                        ),
                       ),
                       SizedBox(height: 10),
                       Expanded(
                         child: TabBarView(
                           children: [
-                            // Conversation Tab
                             ListView.builder(
-                              padding: EdgeInsets.all(10),
+                              padding: EdgeInsets.all(5),
                               itemCount: _chatMessages.length,
                               itemBuilder: (context, index) {
                                 final message = _chatMessages[index];
-                                return AnimatedOpacity(
-                                  opacity: 1,
-                                  duration: Duration(milliseconds: 300),
-                                  child: Align(
-                                    alignment: message["isUser"] ? Alignment.centerRight : Alignment.centerLeft,
-                                    child: Container(
-                                      constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.8),
-                                      padding: EdgeInsets.all(12),
-                                      margin: EdgeInsets.symmetric(vertical: 5),
-                                      decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                          colors: message["isUser"]
-                                              ? [Colors.purple.shade800, Colors.indigo.shade800]
-                                              : [Colors.blueGrey.shade800, Colors.blueGrey.shade900],
-                                          begin: Alignment.topLeft,
-                                          end: Alignment.bottomRight,
-                                        ),
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(15),
-                                          topRight: Radius.circular(15),
-                                          bottomLeft: message["isUser"] ? Radius.circular(15) : Radius.zero,
-                                          bottomRight: message["isUser"] ? Radius.zero : Radius.circular(15),
-                                        ),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.purpleAccent.withOpacity(message["isUser"] ? 0.3 : 0.1),
-                                            blurRadius: 10,
-                                            spreadRadius: 1,
-                                          ),
-                                        ],
+                                return Align(
+                                  alignment: message["isUser"]
+                                      ? Alignment.centerRight
+                                      : Alignment.centerLeft,
+                                  child: Container(
+                                    constraints: BoxConstraints(
+                                        maxWidth: MediaQuery.of(context).size.width * 0.75),
+                                    padding: EdgeInsets.all(12),
+                                    margin: EdgeInsets.symmetric(vertical: 5),
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: message["isUser"]
+                                            ? [_primaryColor, _secondaryColor]
+                                            : [_bgColor, Colors.blueGrey.shade900],
                                       ),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            message["text"],
-                                            style: TextStyle(color: Colors.white, fontSize: 16),
-                                          ),
-                                          SizedBox(height: 5),
-                                          Text(
-                                            message["time"],
-                                            style: TextStyle(color: Colors.white70, fontSize: 10),
-                                          ),
-                                        ],
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(15),
+                                        topRight: Radius.circular(15),
+                                        bottomLeft: message["isUser"]
+                                            ? Radius.circular(15)
+                                            : Radius.zero,
+                                        bottomRight: message["isUser"]
+                                            ? Radius.zero
+                                            : Radius.circular(15),
                                       ),
+                                    ),
+                                    child: Text(
+                                      message["text"],
+                                      style: TextStyle(
+                                          color: _textColor, fontSize: 14),
                                     ),
                                   ),
                                 );
                               },
                             ),
-                            // Recent Queries Tab
                             ListView.builder(
                               padding: EdgeInsets.all(10),
                               itemCount: _recentQueries.length,
                               itemBuilder: (context, index) {
-                                return Card(
-                                  margin: EdgeInsets.symmetric(vertical: 5),
-                                  color: Colors.black.withOpacity(0.4),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                    side: BorderSide(color: Colors.purpleAccent.withOpacity(0.3)),
+                                return ListTile(
+                                  title: Text(
+                                    _recentQueries[index],
+                                    style: TextStyle(color: _textColor),
                                   ),
-                                  child: ListTile(
-                                    leading: Icon(LucideIcons.search, color: Colors.purpleAccent),
-                                    title: Text(
-                                      _recentQueries[index],
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    trailing: Icon(LucideIcons.chevronRight, color: Colors.white54),
-                                    onTap: () => _sendMessage(_recentQueries[index]),
-                                  ),
+                                  leading: Icon(LucideIcons.clock, color: _accentColor),
+                                  onTap: () => _sendMessage(_recentQueries[index]),
                                 );
                               },
                             ),
@@ -441,63 +403,6 @@ class _VoiceControlScreenState extends State<VoiceControlScreen> {
                       ),
                     ],
                   ),
-                ),
-              ),
-              // Input Area
-              Container(
-                padding: EdgeInsets.all(15),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Colors.transparent, Colors.black.withOpacity(0.8)],
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [Colors.purple.shade900.withOpacity(0.5), Colors.blue.shade900.withOpacity(0.5)],
-                          ),
-                          borderRadius: BorderRadius.circular(30),
-                          border: Border.all(color: Colors.purpleAccent.withOpacity(0.5)),
-                        ),
-                        child: TextField(
-                          style: TextStyle(color: Colors.white),
-                          decoration: InputDecoration(
-                            hintText: "Speak your command...",
-                            hintStyle: TextStyle(color: Colors.white54),
-                            border: InputBorder.none,
-                            suffixIcon: Icon(LucideIcons.send, color: Colors.purpleAccent),
-                          ),
-                          onSubmitted: _sendMessage,
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        gradient: LinearGradient(
-                          colors: [Colors.purpleAccent, Colors.blueAccent],
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.purpleAccent.withOpacity(0.5),
-                            blurRadius: 15,
-                            spreadRadius: 2,
-                          ),
-                        ],
-                      ),
-                      child: IconButton(
-                        icon: Icon(LucideIcons.mic, color: Colors.white, size: 30),
-                        onPressed: () => _sendMessage("Voice command"),
-                      ),
-                    ),
-                  ],
                 ),
               ),
             ],

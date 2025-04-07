@@ -5,13 +5,23 @@ import 'package:lucide_icons/lucide_icons.dart';
 
 class GestureCalibrationScreen extends StatefulWidget {
   @override
-  _GestureCalibrationScreenState createState() => _GestureCalibrationScreenState();
+  _GestureCalibrationScreenState createState() =>
+      _GestureCalibrationScreenState();
 }
 
 class _GestureCalibrationScreenState extends State<GestureCalibrationScreen> {
+  // Color palette
+  final Color _primaryColor = Color(0xFF6A11CB); // Deep purple
+  final Color _secondaryColor = Color(0xFF2575FC); // Vibrant blue
+  final Color _accentColor = Color(0xFF00F2FE); // Cyan
+  final Color _successColor = Color(0xFF00E676); // Green
+  final Color _warningColor = Color(0xFFFFC400); // Yellow
+  final Color _bgColor = Color(0xFF0F0F1B); // Dark navy
+  final Color _textColor = Colors.white;
+
   double _calibrationProgress = 0.0;
   double _sensitivity = 0.7;
-  double _cameraDistance = 5.0; // in meters
+  double _cameraDistance = 5.0;
   bool _isCalibrating = false;
   String _calibrationStatus = "Ready to calibrate";
 
@@ -22,10 +32,9 @@ class _GestureCalibrationScreenState extends State<GestureCalibrationScreen> {
       _calibrationProgress = 0.0;
     });
 
-    // Simulate calibration progress
     const calibrationDuration = Duration(seconds: 3);
     final calibrationSteps = calibrationDuration.inMilliseconds ~/ 100;
-    
+
     Timer.periodic(Duration(milliseconds: 100), (timer) {
       setState(() {
         _calibrationProgress += 1 / calibrationSteps;
@@ -42,11 +51,21 @@ class _GestureCalibrationScreenState extends State<GestureCalibrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: _bgColor,
       body: Stack(
         children: [
-          // Space background
-          _buildSpaceBackground(),
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  _primaryColor.withOpacity(0.8),
+                  _bgColor,
+                ],
+              ),
+            ),
+          ),
           SingleChildScrollView(
             padding: EdgeInsets.all(20),
             child: Column(
@@ -71,45 +90,28 @@ class _GestureCalibrationScreenState extends State<GestureCalibrationScreen> {
 
   Widget _buildAppBar() {
     return Padding(
-  padding: EdgeInsets.only(top: 40, left: 20, right: 20), // Added top and side padding
-  child: Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-      IconButton(
-        icon: Icon(LucideIcons.chevronLeft, color: Colors.white, size: 28),
-        onPressed: () => Navigator.pop(context),
-      ),
-      Expanded(
-        child: Text(
-          "GESTURE CALIBRATION",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.purpleAccent,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 1.5,
+      padding: EdgeInsets.only(top: 40, left: 20, right: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(
+            icon: Icon(LucideIcons.chevronLeft, color: _textColor, size: 28),
+            onPressed: () => Navigator.pop(context),
           ),
-        ),
-      ),
-      SizedBox(width: 48), // Balances the row, keeping the center text aligned
-    ],
-  ),
-);
-
-  }
-
-  Widget _buildSpaceBackground() {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Colors.deepPurple.shade900.withOpacity(0.8),
-            Colors.black,
-          ],
-        ),
+          Expanded(
+            child: Text(
+              "GESTURE CALIBRATION",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: _accentColor,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.5,
+              ),
+            ),
+          ),
+          SizedBox(width: 48),
+        ],
       ),
     );
   }
@@ -121,7 +123,7 @@ class _GestureCalibrationScreenState extends State<GestureCalibrationScreen> {
         Text(
           "Head Tracking Setup",
           style: TextStyle(
-            color: Colors.white,
+            color: _textColor,
             fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
@@ -129,32 +131,38 @@ class _GestureCalibrationScreenState extends State<GestureCalibrationScreen> {
         SizedBox(height: 10),
         Text(
           "For optimal experience, please calibrate your head movements in a well-lit environment.",
-          style: TextStyle(color: Colors.white70, fontSize: 16),
+          style: TextStyle(color: _textColor.withOpacity(0.7), fontSize: 16),
         ),
         SizedBox(height: 20),
         Container(
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.3),
+            color: _bgColor.withOpacity(0.5),
             borderRadius: BorderRadius.circular(15),
-            border: Border.all(color: Colors.purpleAccent.withOpacity(0.2)),
+            border: Border.all(color: _accentColor.withOpacity(0.2)),
           ),
           child: Column(
             children: [
               ListTile(
-                leading: Icon(LucideIcons.move, color: Colors.purpleAccent), // Replaced move3D with move
-                title: Text("Move your head slowly", style: TextStyle(color: Colors.white)),
-                subtitle: Text("Look left, right, up and down", style: TextStyle(color: Colors.white70)),
+                leading: Icon(LucideIcons.move, color: Colors.orangeAccent),
+                title:
+                    Text("Move your head slowly", style: TextStyle(color: _textColor)),
+                subtitle: Text("Look left, right, up and down",
+                    style: TextStyle(color: _textColor.withOpacity(0.7))),
               ),
               ListTile(
-                leading: Icon(LucideIcons.lightbulb, color: Colors.purpleAccent),
-                title: Text("Ensure proper lighting", style: TextStyle(color: Colors.white)),
-                subtitle: Text("Avoid direct light sources", style: TextStyle(color: Colors.white70)),
+                leading: Icon(LucideIcons.lightbulb, color: Colors.yellow),
+                title: Text("Ensure proper lighting",
+                    style: TextStyle(color: _textColor)),
+                subtitle: Text("Avoid direct light sources",
+                    style: TextStyle(color: _textColor.withOpacity(0.7))),
               ),
               ListTile(
-                leading: Icon(LucideIcons.ruler, color: Colors.purpleAccent),
-                title: Text("Maintain 1-2 meters distance", style: TextStyle(color: Colors.white)),
-                subtitle: Text("From your device camera", style: TextStyle(color: Colors.white70)),
+                leading: Icon(LucideIcons.ruler, color: Colors.redAccent),
+                title: Text("Maintain 1-2 meters distance",
+                    style: TextStyle(color: _textColor)),
+                subtitle: Text("From your device camera",
+                    style: TextStyle(color: _textColor.withOpacity(0.7))),
               ),
             ],
           ),
@@ -170,7 +178,7 @@ class _GestureCalibrationScreenState extends State<GestureCalibrationScreen> {
         Text(
           "Calibration Status",
           style: TextStyle(
-            color: Colors.white,
+            color: _textColor,
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
@@ -178,8 +186,8 @@ class _GestureCalibrationScreenState extends State<GestureCalibrationScreen> {
         SizedBox(height: 15),
         LinearProgressIndicator(
           value: _calibrationProgress,
-          backgroundColor: Colors.blueGrey.shade800,
-          color: Colors.purpleAccent,
+          backgroundColor: _bgColor.withOpacity(0.7),
+          color: _isCalibrating ? _warningColor : _successColor,
           minHeight: 10,
           borderRadius: BorderRadius.circular(5),
         ),
@@ -187,23 +195,25 @@ class _GestureCalibrationScreenState extends State<GestureCalibrationScreen> {
         Text(
           _calibrationStatus,
           style: TextStyle(
-            color: _isCalibrating ? Colors.blueAccent : Colors.greenAccent,
+            color: _isCalibrating ? _warningColor : _successColor,
             fontSize: 16,
           ),
         ),
         SizedBox(height: 20),
-        ElevatedButton(
-          onPressed: _isCalibrating ? null : _startCalibration,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.purpleAccent,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
+        Center(
+          child: ElevatedButton(
+            onPressed: _isCalibrating ? null : _startCalibration,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: _primaryColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
             ),
-            padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
-          ),
-          child: Text(
-            _isCalibrating ? "Calibrating..." : "Start Calibration",
-            style: TextStyle(fontSize: 16),
+            child: Text(
+              _isCalibrating ? "Calibrating..." : "Start Calibration",
+              style: TextStyle(fontSize: 16, color: _textColor),
+            ),
           ),
         ),
       ],
@@ -217,7 +227,7 @@ class _GestureCalibrationScreenState extends State<GestureCalibrationScreen> {
         Text(
           "Control Settings",
           style: TextStyle(
-            color: Colors.white,
+            color: _textColor,
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
@@ -226,9 +236,9 @@ class _GestureCalibrationScreenState extends State<GestureCalibrationScreen> {
         Container(
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.3),
+            color: _bgColor.withOpacity(0.5),
             borderRadius: BorderRadius.circular(15),
-            border: Border.all(color: Colors.purpleAccent.withOpacity(0.2)),
+            border: Border.all(color: _accentColor.withOpacity(0.2)),
           ),
           child: Column(
             children: [
@@ -240,7 +250,7 @@ class _GestureCalibrationScreenState extends State<GestureCalibrationScreen> {
                 max: 1.0,
                 onChanged: (value) => setState(() => _sensitivity = value),
               ),
-              Divider(color: Colors.purpleAccent.withOpacity(0.1)),
+              Divider(color: _accentColor.withOpacity(0.1)),
               _buildSliderSetting(
                 icon: LucideIcons.ruler,
                 title: "Camera Distance (${_cameraDistance.toStringAsFixed(1)}m)",
@@ -250,14 +260,16 @@ class _GestureCalibrationScreenState extends State<GestureCalibrationScreen> {
                 divisions: 19,
                 onChanged: (value) => setState(() => _cameraDistance = value),
               ),
-              Divider(color: Colors.purpleAccent.withOpacity(0.1)),
+              Divider(color: _accentColor.withOpacity(0.1)),
               SwitchListTile(
                 contentPadding: EdgeInsets.zero,
-                title: Text("Enable Head Tracking", style: TextStyle(color: Colors.white)),
-                subtitle: Text("Use head movements for navigation", style: TextStyle(color: Colors.white70)),
-                secondary: Icon(LucideIcons.move, color: Colors.purpleAccent), // Replaced move3D with move
+                title:
+                    Text("Enable Head Tracking", style: TextStyle(color: _textColor)),
+                subtitle: Text("Use head movements for navigation",
+                    style: TextStyle(color: _textColor.withOpacity(0.7))),
+                secondary: Icon(LucideIcons.move, color: Colors.greenAccent),
                 value: true,
-                activeColor: Colors.purpleAccent,
+                activeColor: _successColor,
                 onChanged: (value) {},
               ),
             ],
@@ -280,20 +292,20 @@ class _GestureCalibrationScreenState extends State<GestureCalibrationScreen> {
       padding: EdgeInsets.symmetric(vertical: 10),
       child: Row(
         children: [
-          Icon(icon, color: Colors.purpleAccent),
+          Icon(icon, color: _accentColor),
           SizedBox(width: 15),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: TextStyle(color: Colors.white)),
+                Text(title, style: TextStyle(color: _textColor)),
                 Slider(
                   value: value,
                   min: min,
                   max: max,
                   divisions: divisions,
-                  activeColor: Colors.purpleAccent,
-                  inactiveColor: Colors.blueGrey.shade800,
+                  activeColor: _accentColor,
+                  inactiveColor: _bgColor.withOpacity(0.7),
                   onChanged: onChanged,
                 ),
               ],
@@ -311,7 +323,7 @@ class _GestureCalibrationScreenState extends State<GestureCalibrationScreen> {
         Text(
           "Navigation Tips",
           style: TextStyle(
-            color: Colors.white,
+            color: _textColor,
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
@@ -320,9 +332,9 @@ class _GestureCalibrationScreenState extends State<GestureCalibrationScreen> {
         Container(
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.3),
+            color: _bgColor.withOpacity(0.5),
             borderRadius: BorderRadius.circular(15),
-            border: Border.all(color: Colors.purpleAccent.withOpacity(0.2)),
+            border: Border.all(color: _accentColor.withOpacity(0.2)),
           ),
           child: Column(
             children: [
@@ -330,16 +342,19 @@ class _GestureCalibrationScreenState extends State<GestureCalibrationScreen> {
                 icon: LucideIcons.moveHorizontal,
                 title: "Horizontal Movement",
                 description: "Tilt head left/right to pan view",
+                color: Colors.orange,
               ),
               _buildGestureTip(
                 icon: LucideIcons.moveVertical,
                 title: "Vertical Movement",
                 description: "Tilt head up/down to adjust elevation",
+                color: Colors.green,
               ),
               _buildGestureTip(
                 icon: LucideIcons.zoomIn,
                 title: "Zoom Control",
                 description: "Lean forward/backward to zoom in/out",
+                color: Colors.redAccent,
               ),
             ],
           ),
@@ -352,21 +367,24 @@ class _GestureCalibrationScreenState extends State<GestureCalibrationScreen> {
     required IconData icon,
     required String title,
     required String description,
+    required Color color,
   }) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: Colors.purpleAccent),
+          Icon(icon, color: color),
           SizedBox(width: 15),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: TextStyle(color: Colors.white, fontSize: 16)),
+                Text(title,
+                    style: TextStyle(color: _textColor, fontSize: 16)),
                 SizedBox(height: 5),
-                Text(description, style: TextStyle(color: Colors.white70)),
+                Text(description,
+                    style: TextStyle(color: _textColor.withOpacity(0.7))),
               ],
             ),
           ),

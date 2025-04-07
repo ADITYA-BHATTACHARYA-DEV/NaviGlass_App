@@ -9,6 +9,14 @@ class ControlPanel extends StatefulWidget {
 }
 
 class _ControlPanelState extends State<ControlPanel> {
+  // Vibrant color palette
+  final Color _primaryBlue = Color(0xFF2962FF);
+  final Color _electricGreen = Color(0xFF00E676);
+  final Color _vibrantRed = Color(0xFFFF3D00);
+  final Color _sunshineYellow = Color(0xFFFFEA00);
+  final Color _deepPurple = Color(0xFF6200EA);
+  final Color _spaceBlack = Color(0xFF121212);
+
   // Sample data
   final int _placesVisited = 42;
   final int _questionsAsked = 28;
@@ -27,13 +35,10 @@ class _ControlPanelState extends State<ControlPanel> {
     final isSmallScreen = screenWidth < 400;
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: _spaceBlack,
       body: Stack(
         children: [
-          // Animated Space Background
           _buildSpaceBackground(context),
-          
-          // Safe area to avoid camera notch
           SafeArea(
             child: SingleChildScrollView(
               padding: EdgeInsets.only(
@@ -45,28 +50,19 @@ class _ControlPanelState extends State<ControlPanel> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Header with proper spacing
                   _buildAppBar(isSmallScreen),
                   SizedBox(height: screenHeight * 0.03),
-
-                  // Main Metrics Grid
                   _buildMetricsGrid(isSmallScreen),
                   SizedBox(height: screenHeight * 0.04),
-
-                  // Recent Activity Section
-                  _buildSectionHeader("RECENT ACTIVITY"),
+                  _buildSectionHeader("RECENT ACTIVITY", _primaryBlue),
                   SizedBox(height: 12),
                   _buildRecentActivity(),
                   SizedBox(height: screenHeight * 0.04),
-
-                  // Favorite Locations
-                  _buildSectionHeader("FAVORITE LOCATIONS"),
+                  _buildSectionHeader("FAVORITE LOCATIONS", _electricGreen),
                   SizedBox(height: 12),
                   _buildFavoriteLocations(isSmallScreen),
                   SizedBox(height: screenHeight * 0.04),
-
-                  // System Controls
-                  _buildSectionHeader("SYSTEM CONTROLS"),
+                  _buildSectionHeader("SYSTEM CONTROLS", _vibrantRed),
                   SizedBox(height: 12),
                   _buildSystemControls(isSmallScreen),
                   SizedBox(height: screenHeight * 0.02),
@@ -89,29 +85,26 @@ class _ControlPanelState extends State<ControlPanel> {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Colors.deepPurple.shade900.withOpacity(0.9),
-            Colors.black,
+            _deepPurple.withOpacity(0.9),
+            _spaceBlack,
           ],
         ),
       ),
       child: Stack(
         children: [
-          // Stars
-          for (int i = 0; i < 50; i++)
+          for (int i = 0; i < 100; i++)
             Positioned(
               left: Random().nextDouble() * size.width,
               top: Random().nextDouble() * size.height,
               child: Container(
-                width: Random().nextDouble() * 2 + 1,
-                height: Random().nextDouble() * 2 + 1,
+                width: Random().nextDouble() * 3 + 1,
+                height: Random().nextDouble() * 3 + 1,
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(Random().nextDouble() * 0.8 + 0.2),
+                  color: Colors.white.withOpacity(Random().nextDouble()),
                   shape: BoxShape.circle,
                 ),
               ),
             ),
-          
-          // Nebula effect
           Positioned(
             right: -size.width * 0.3,
             top: size.height * 0.1,
@@ -122,7 +115,24 @@ class _ControlPanelState extends State<ControlPanel> {
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
                   colors: [
-                    Colors.purpleAccent.withOpacity(0.1),
+                    _primaryBlue.withOpacity(0.15),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            left: -size.width * 0.2,
+            bottom: -size.height * 0.2,
+            child: Container(
+              width: size.width * 0.6,
+              height: size.width * 0.6,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    _electricGreen.withOpacity(0.1),
                     Colors.transparent,
                   ],
                 ),
@@ -138,17 +148,24 @@ class _ControlPanelState extends State<ControlPanel> {
     return Row(
       children: [
         IconButton(
-          icon: Icon(LucideIcons.chevronLeft, color: Colors.white, size: isSmallScreen ? 24 : 28),
+          icon: Icon(LucideIcons.chevronLeft,
+              color: Colors.white, size: isSmallScreen ? 24 : 28),
           onPressed: () => Navigator.pop(context),
         ),
         SizedBox(width: isSmallScreen ? 8 : 12),
         Text(
           " CONTROL PANEL ",
           style: TextStyle(
-            color: const Color.fromARGB(255, 252, 252, 252),
+            color: Colors.white,
             fontSize: isSmallScreen ? 18 : 22,
             fontWeight: FontWeight.bold,
             letterSpacing: 1.5,
+            shadows: [
+              Shadow(
+                color: _primaryBlue.withOpacity(0.5),
+                blurRadius: 10,
+              ),
+            ],
           ),
         ),
       ],
@@ -168,21 +185,21 @@ class _ControlPanelState extends State<ControlPanel> {
           icon: LucideIcons.globe,
           value: _placesVisited,
           label: "Places Visited",
-          color: const Color.fromARGB(255, 4, 91, 241),
+          color: _primaryBlue,
           size: isSmallScreen ? 70 : 80,
         ),
         _buildMetricCircle(
           icon: LucideIcons.messageSquare,
           value: _questionsAsked,
           label: "Questions Asked",
-          color: Color.fromARGB(255, 2, 255, 61),
+          color: _electricGreen,
           size: isSmallScreen ? 70 : 80,
         ),
         _buildMetricCircle(
           icon: LucideIcons.map,
           value: _distanceCovered,
           label: "Distance (km)",
-          color: Color.fromARGB(255, 253, 67, 57),
+          color: _vibrantRed,
           isDecimal: true,
           size: isSmallScreen ? 70 : 80,
         ),
@@ -190,7 +207,7 @@ class _ControlPanelState extends State<ControlPanel> {
           icon: LucideIcons.user,
           value: _activeSessions,
           label: "Active Sessions",
-          color: Color.fromARGB(255, 249, 228, 3),
+          color: _sunshineYellow,
           size: isSmallScreen ? 70 : 80,
         ),
       ],
@@ -212,15 +229,15 @@ class _ControlPanelState extends State<ControlPanel> {
         shape: BoxShape.circle,
         gradient: RadialGradient(
           colors: [
-            color.withOpacity(0.3),
+            color.withOpacity(0.5),
             color.withOpacity(0.1),
           ],
         ),
-        border: Border.all(color: color.withOpacity(0.6), width: 1.5),
+        border: Border.all(color: color.withOpacity(0.8), width: 2),
         boxShadow: [
           BoxShadow(
-            color: color.withOpacity(0.2),
-            blurRadius: 10,
+            color: color.withOpacity(0.3),
+            blurRadius: 15,
             spreadRadius: 2,
           ),
         ],
@@ -228,7 +245,7 @@ class _ControlPanelState extends State<ControlPanel> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, size: size * 0.3, color: color),
+          Icon(icon, size: size * 0.3, color: Colors.white),
           SizedBox(height: size * 0.1),
           Text(
             isDecimal ? value.toStringAsFixed(1) : value.toString(),
@@ -251,14 +268,20 @@ class _ControlPanelState extends State<ControlPanel> {
     );
   }
 
-  Widget _buildSectionHeader(String title) {
+  Widget _buildSectionHeader(String title, Color color) {
     return Text(
       title,
       style: TextStyle(
-        color: Colors.purpleAccent,
+        color: color,
         fontSize: 16,
         fontWeight: FontWeight.bold,
         letterSpacing: 1.2,
+        shadows: [
+          Shadow(
+            color: color.withOpacity(0.3),
+            blurRadius: 10,
+          ),
+        ],
       ),
     );
   }
@@ -268,7 +291,7 @@ class _ControlPanelState extends State<ControlPanel> {
       decoration: BoxDecoration(
         color: Colors.black.withOpacity(0.3),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.purpleAccent.withOpacity(0.3)),
+        border: Border.all(color: _primaryBlue.withOpacity(0.3)),
       ),
       child: Column(
         children: [
@@ -277,20 +300,23 @@ class _ControlPanelState extends State<ControlPanel> {
             title: "Last Session",
             value: "32 minutes",
             time: "Today, 14:30",
+            color: _primaryBlue,
           ),
-          Divider(color: Colors.purpleAccent.withOpacity(0.1), height: 1),
+          Divider(color: _primaryBlue.withOpacity(0.1), height: 1),
           _buildActivityTile(
             icon: LucideIcons.mapPin,
             title: "Last Location",
             value: _recentLocations[0],
             time: "Today, 14:15",
+            color: _electricGreen,
           ),
-          Divider(color: Colors.purpleAccent.withOpacity(0.1), height: 1),
+          Divider(color: _electricGreen.withOpacity(0.1), height: 1),
           _buildActivityTile(
             icon: LucideIcons.search,
             title: "Last Query",
             value: "About black holes",
             time: "Today, 14:05",
+            color: _vibrantRed,
           ),
         ],
       ),
@@ -302,16 +328,17 @@ class _ControlPanelState extends State<ControlPanel> {
     required String title,
     required String value,
     required String time,
+    required Color color,
   }) {
     return ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       leading: Container(
         padding: EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Colors.purpleAccent.withOpacity(0.1),
+          color: color.withOpacity(0.1),
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Icon(icon, color: Colors.purpleAccent, size: 20),
+        child: Icon(icon, color: color, size: 20),
       ),
       title: Text(title, style: TextStyle(color: Colors.white70, fontSize: 14)),
       subtitle: Text(value, style: TextStyle(color: Colors.white, fontSize: 16)),
@@ -325,19 +352,19 @@ class _ControlPanelState extends State<ControlPanel> {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
-          _buildLocationCard("Dwarka Colony", LucideIcons.globe),
+          _buildLocationCard("Dwarka Colony", LucideIcons.globe, _primaryBlue),
           SizedBox(width: 12),
-          _buildLocationCard("Kumbh Mela", LucideIcons.moon),
+          _buildLocationCard("Kumbh Mela", LucideIcons.moon, _electricGreen),
           SizedBox(width: 12),
-          _buildLocationCard("Prayagraj", LucideIcons.orbit),
+          _buildLocationCard("Prayagraj", LucideIcons.orbit, _vibrantRed),
           SizedBox(width: 12),
-          _buildLocationCard("Lleida", LucideIcons.star),
+          _buildLocationCard("Lleida", LucideIcons.star, _sunshineYellow),
         ],
       ),
     );
   }
 
-  Widget _buildLocationCard(String name, IconData icon) {
+  Widget _buildLocationCard(String name, IconData icon, Color color) {
     return Container(
       width: 120,
       decoration: BoxDecoration(
@@ -345,22 +372,34 @@ class _ControlPanelState extends State<ControlPanel> {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Colors.deepPurple.shade800.withOpacity(0.5),
-            Colors.indigo.shade900.withOpacity(0.5),
+            color.withOpacity(0.3),
+            _spaceBlack.withOpacity(0.7),
           ],
         ),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.purpleAccent.withOpacity(0.3)),
+        border: Border.all(color: color.withOpacity(0.4), width: 1.5),
+        boxShadow: [
+          BoxShadow(
+            color: color.withOpacity(0.2),
+            blurRadius: 6,
+            offset: Offset(2, 4),
+          ),
+        ],
       ),
+      padding: EdgeInsets.all(12),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, size: 30, color: Colors.purpleAccent),
+          Icon(icon, color: Colors.white, size: 28),
           SizedBox(height: 8),
           Text(
             name,
-            style: TextStyle(color: Colors.white, fontSize: 14),
             textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ],
       ),
@@ -369,62 +408,37 @@ class _ControlPanelState extends State<ControlPanel> {
 
   Widget _buildSystemControls(bool isSmallScreen) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Expanded(
-          child: _buildControlButton(
-            icon: LucideIcons.power,
-            label: "Restart System",
-            color: Colors.orangeAccent,
-            isSmallScreen: isSmallScreen,
-          ),
-        ),
-        SizedBox(width: isSmallScreen ? 10 : 16),
-        Expanded(
-          child: _buildControlButton(
-            icon: LucideIcons.settings,
-            label: "Advanced Settings",
-            color: Colors.purpleAccent,
-            isSmallScreen: isSmallScreen,
-          ),
-        ),
+        _buildControlButton("RESTART", LucideIcons.rotateCcw, _vibrantRed),
+        _buildControlButton("SYNC", LucideIcons.refreshCcw, _electricGreen),
+        _buildControlButton("LOG OUT", LucideIcons.logOut, _primaryBlue),
       ],
     );
   }
 
-  Widget _buildControlButton({
-    required IconData icon,
-    required String label,
-    required Color color,
-    required bool isSmallScreen,
-  }) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: color.withOpacity(0.2),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: color.withOpacity(0.5), width: 1),
-        ),
-        padding: EdgeInsets.symmetric(vertical: isSmallScreen ? 14 : 16),
-      ),
-      onPressed: () {},
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, color: color, size: isSmallScreen ? 20 : 24),
-          SizedBox(width: 8),
-          Flexible(
-            child: Text(
-              label,
-              style: TextStyle(
-                color: color,
-                fontSize: isSmallScreen ? 12 : 14,
-              ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
+  Widget _buildControlButton(String label, IconData icon, Color color) {
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: color.withOpacity(0.1),
+            shape: BoxShape.circle,
+            border: Border.all(color: color, width: 2),
           ),
-        ],
-      ),
+          child: Icon(icon, color: color, size: 20),
+        ),
+        SizedBox(height: 6),
+        Text(
+          label,
+          style: TextStyle(
+            color: Colors.white70,
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+          ),
+        )
+      ],
     );
   }
 }

@@ -4,6 +4,24 @@ import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 class SpaceDashboard extends StatelessWidget {
+  final Color _primaryColor = Color(0xFF6C63FF); // Soft purple
+  final Color _secondaryColor = Color(0xFF4A90E2); // Muted blue
+  final Color _accentColor = Color(0xFF00BFA5); // Teal
+  final Color _neutralDark = Color(0xFF121212); // Dark background
+  final Color _neutralLight = Color(0xFFF5F5F5); // Light text/icons
+  final Color _cardBg = Color(0xFF1E1E1E); // Card background
+
+  final List<Color> _iconColors = [
+    Colors.blueAccent,
+    Colors.greenAccent,
+    Colors.purpleAccent,
+    Colors.orangeAccent,
+    Colors.redAccent,
+    Colors.yellowAccent,
+    Colors.tealAccent,
+    Colors.deepPurpleAccent,
+  ];
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -11,10 +29,9 @@ class SpaceDashboard extends StatelessWidget {
     final isSmallScreen = screenWidth < 400;
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: _neutralDark,
       body: Stack(
         children: [
-          // Space background with stars
           _buildSpaceBackground(context),
           SingleChildScrollView(
             padding: EdgeInsets.symmetric(
@@ -43,52 +60,33 @@ class SpaceDashboard extends StatelessWidget {
   }
 
   Widget _buildAppBar(bool isSmallScreen) {
-    return Padding(
-      
-      padding: EdgeInsets.symmetric(horizontal: isSmallScreen ? 0 : 8),
-      child: Row(
-        
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [ SizedBox(height: 30),
-          Column(
-            
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Text(
-              //   "User Explorer",
-              //   style: TextStyle(
-              //     color: Colors.purpleAccent,
-              //     fontSize: isSmallScreen ? 10 : 12,
-              //     letterSpacing: 2,
-              //     fontWeight: FontWeight.bold,
-              //   ),
-              // ),
-              SizedBox(height: 8),
-              Text(
-                "Profile Dashboard",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: isSmallScreen ? 20 : 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-       
-          CircleAvatar(
-            
-            radius: isSmallScreen ? 10 : 14,
-            backgroundColor: Colors.purpleAccent.withOpacity(0.2),
-            
-            child: Icon(
-              
-              LucideIcons.user,
-              color: Colors.purpleAccent,
-              size: isSmallScreen ? 18 : 20,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            "Profile Dashboard",
+            style: TextStyle(
+              color: _neutralLight,
+              fontSize: isSmallScreen ? 20 : 24,
+              fontWeight: FontWeight.bold,
             ),
           ),
-        ],
-      ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: CircleAvatar(
+            radius: isSmallScreen ? 20 : 24,
+            backgroundColor: _primaryColor.withOpacity(0.2),
+            child: Icon(
+              LucideIcons.user,
+              color: Colors.pinkAccent,
+              size: isSmallScreen ? 24 : 28,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -96,78 +94,58 @@ class SpaceDashboard extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [Colors.deepPurple.shade800, Colors.indigo.shade900],
-        ),
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.purpleAccent.withOpacity(0.3),
-            blurRadius: 20,
-            spreadRadius: 2,
+        color: _cardBg,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: _primaryColor.withOpacity(0.3)),
+      ),
+      padding: EdgeInsets.all(isSmallScreen ? 16 : 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Local Weather",
+                  style: TextStyle(
+                    color: Colors.orangeAccent,
+                    fontSize: isSmallScreen ? 12 : 14,
+                    letterSpacing: 1.5,
+                  )),
+              Icon(LucideIcons.cloud,
+                  color: Colors.orangeAccent, size: isSmallScreen ? 18 : 20),
+            ],
+          ),
+          SizedBox(height: 12),
+          Text("Current Conditions",
+              style: TextStyle(
+                  color: _neutralLight,
+                  fontSize: isSmallScreen ? 16 : 18,
+                  fontWeight: FontWeight.bold)),
+          SizedBox(height: isSmallScreen ? 16 : 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildWeatherMetric(
+                icon: LucideIcons.sun,
+                value: "Daylight: Low",
+                color: Colors.yellowAccent,
+                isSmallScreen: isSmallScreen,
+              ),
+              _buildWeatherMetric(
+                icon: LucideIcons.waves,
+                value: "Humidity: 8%",
+                color: Colors.tealAccent,
+                isSmallScreen: isSmallScreen,
+              ),
+              _buildWeatherMetric(
+                icon: LucideIcons.compass,
+                value: "Wind: Stable",
+                color: Colors.blueAccent,
+                isSmallScreen: isSmallScreen,
+              ),
+            ],
           ),
         ],
-      ),
-      child: Padding(
-        padding: EdgeInsets.all(isSmallScreen ? 16 : 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Local Weather",
-                  style: TextStyle(
-                    color: Colors.purpleAccent,
-                    fontSize: isSmallScreen ? 10 : 12,
-                    letterSpacing: 1.5,
-                  ),
-                ),
-                Icon(
-                  LucideIcons.satellite,
-                  color: Colors.purpleAccent,
-                  size: isSmallScreen ? 18 : 20,
-                ),
-              ],
-            ),
-            SizedBox(height: 12),
-            Text(
-              "Current Conditions",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: isSmallScreen ? 16 : 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: isSmallScreen ? 16 : 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _buildWeatherMetric(
-                  icon: LucideIcons.sun,
-                  value: "Daylight: Low",
-                  color: Colors.orangeAccent,
-                  isSmallScreen: isSmallScreen,
-                ),
-                _buildWeatherMetric(
-                  icon: LucideIcons.waves,
-                  value: "Humidity: 8%",
-                  color: Colors.greenAccent,
-                  isSmallScreen: isSmallScreen,
-                ),
-                _buildWeatherMetric(
-                  icon: LucideIcons.compass,
-                  value: "Wind: Stable",
-                  color: Colors.blueAccent,
-                  isSmallScreen: isSmallScreen,
-                ),
-              ],
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -180,19 +158,11 @@ class SpaceDashboard extends StatelessWidget {
   }) {
     return Column(
       children: [
-        Icon(
-          icon,
-          color: color,
-          size: isSmallScreen ? 20 : 24,
-        ),
-        SizedBox(height: 6),
-        Text(
-          value,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: isSmallScreen ? 10 : 12,
-          ),
-        ),
+        Icon(icon, color: color, size: isSmallScreen ? 20 : 24),
+        SizedBox(height: 8),
+        Text(value,
+            style: TextStyle(
+                color: _neutralLight, fontSize: isSmallScreen ? 12 : 14)),
       ],
     );
   }
@@ -208,60 +178,40 @@ class SpaceDashboard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "RECENTLY VISITED",
-          style: TextStyle(
-            color: Colors.purpleAccent,
-            fontSize: isSmallScreen ? 10 : 12,
-            letterSpacing: 1.5,
-          ),
-        ),
+        Text("RECENTLY VISITED",
+            style: TextStyle(
+              color: Colors.purpleAccent,
+              fontSize: isSmallScreen ? 12 : 14,
+              letterSpacing: 1.5,
+            )),
         SizedBox(height: 12),
         Container(
-          width: double.infinity,
           decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.3),
+            color: _cardBg,
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: Colors.purpleAccent.withOpacity(0.2)),
+            border: Border.all(color: _primaryColor.withOpacity(0.2)),
           ),
           child: Column(
-            children: recentPlaces.map((place) => ListTile(
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: isSmallScreen ? 12 : 16,
-                vertical: 8,
-              ),
-              leading: Container(
-                padding: EdgeInsets.all(isSmallScreen ? 6 : 8),
-                decoration: BoxDecoration(
-                  color: Colors.purpleAccent.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(10),
+            children: recentPlaces.asMap().entries.map((entry) {
+              int index = entry.key;
+              var place = entry.value;
+              return ListTile(
+                leading: CircleAvatar(
+                  backgroundColor: _iconColors[index % _iconColors.length]
+                      .withOpacity(0.2),
+                  child: Icon(
+                    place["icon"] as IconData,
+                    color: _iconColors[index % _iconColors.length],
+                  ),
                 ),
-                child: Icon(
-                  place["icon"] as IconData,
-                  color: Colors.purpleAccent,
-                  size: isSmallScreen ? 18 : 20,
-                ),
-              ),
-              title: Text(
-                place["name"] as String,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: isSmallScreen ? 14 : 16,
-                ),
-              ),
-              subtitle: Text(
-                place["date"] as String,
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontSize: isSmallScreen ? 10 : 12,
-                ),
-              ),
-              trailing: Icon(
-                LucideIcons.chevronRight,
-                color: Colors.white54,
-                size: isSmallScreen ? 18 : 20,
-              ),
-            )).toList(),
+                title: Text(place["name"]! as String,
+                    style: TextStyle(color: _neutralLight)),
+                subtitle: Text(place["date"]! as String,
+                    style: TextStyle(color: _neutralLight.withOpacity(0.6))),
+                trailing: Icon(LucideIcons.chevronRight,
+                    color: Colors.white24, size: 18),
+              );
+            }).toList(),
           ),
         ),
       ],
@@ -278,103 +228,51 @@ class SpaceDashboard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "RECENT QUERIES",
-          style: TextStyle(
-            color: Colors.purpleAccent,
-            fontSize: isSmallScreen ? 10 : 12,
-            letterSpacing: 1.5,
-          ),
-        ),
+        Text("RECENT QUERIES",
+            style: TextStyle(
+                color: Colors.lightGreenAccent,
+                fontSize: isSmallScreen ? 12 : 14,
+                letterSpacing: 1.5)),
         SizedBox(height: 12),
         Container(
-          width: double.infinity,
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Colors.deepPurple.shade900.withOpacity(0.7),
-                Colors.indigo.shade900.withOpacity(0.7)
-              ],
-            ),
+            color: _cardBg,
             borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.purpleAccent.withOpacity(0.1),
-                blurRadius: 10,
-                spreadRadius: 2,
-              ),
-            ],
+            border: Border.all(color: _primaryColor.withOpacity(0.2)),
           ),
           child: Column(
-            children: queries.map((query) => Padding(
-              padding: EdgeInsets.all(isSmallScreen ? 12 : 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Icon(
-                        LucideIcons.mic,
-                        color: Colors.purpleAccent,
-                        size: isSmallScreen ? 14 : 16,
-                      ),
+            children: queries.map((query) {
+              return Padding(
+                padding: EdgeInsets.all(isSmallScreen ? 12 : 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(children: [
+                      Icon(LucideIcons.mic, color: Colors.redAccent, size: 16),
                       SizedBox(width: 6),
-                      Text(
-                        "You asked:",
-                        style: TextStyle(
-                          color: Colors.white70,
-                          fontSize: isSmallScreen ? 10 : 12,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 4),
-                  Text(
-                    query["query"] as String,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: isSmallScreen ? 12 : 14,
-                    ),
-                  ),
-                  SizedBox(height: isSmallScreen ? 8 : 12),
-                  Row(
-                    children: [
-                      Icon(
-                        LucideIcons.star,
-                        color: Colors.blueAccent,
-                        size: isSmallScreen ? 14 : 16,
-                      ),
+                      Text("You asked:",
+                          style: TextStyle(
+                              color: Colors.redAccent.withOpacity(0.7),
+                              fontSize: isSmallScreen ? 12 : 14)),
+                    ]),
+                    Text(query["query"]! as String,
+                        style: TextStyle(color: _neutralLight)),
+                    SizedBox(height: 8),
+                    Row(children: [
+                      Icon(LucideIcons.star, color: Colors.amberAccent),
                       SizedBox(width: 6),
-                      Text(
-                        "Response:",
-                        style: TextStyle(
-                          color: Colors.white70,
-                          fontSize: isSmallScreen ? 10 : 12,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 4),
-                  Text(
-                    query["response"] as String,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: isSmallScreen ? 12 : 14,
-                    ),
-                  ),
-                  if (query != queries.last) 
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: isSmallScreen ? 8 : 12),
-                      child: Divider(
-                        color: Colors.purpleAccent.withOpacity(0.1),
-                        height: 1,
-                      ),
-                    ),
-                ],
-              ),
-            )).toList(),
+                      Text("Response:",
+                          style: TextStyle(
+                              color: Colors.amberAccent.withOpacity(0.7),
+                              fontSize: isSmallScreen ? 12 : 14)),
+                    ]),
+                    Text(query["response"]! as String,
+                        style: TextStyle(color: _neutralLight)),
+                    if (query != queries.last) Divider(color: Colors.white12)
+                  ],
+                ),
+              );
+            }).toList(),
           ),
         ),
       ],
@@ -385,54 +283,38 @@ class SpaceDashboard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "ABOUT NAVIGLASS",
-          style: TextStyle(
-            color: Colors.purpleAccent,
-            fontSize: isSmallScreen ? 10 : 12,
-            letterSpacing: 1.5,
-          ),
-        ),
+        Text("ABOUT NAVIGLASS",
+            style: TextStyle(
+                color: Colors.deepPurpleAccent,
+                fontSize: isSmallScreen ? 12 : 14,
+                letterSpacing: 1.5)),
         SizedBox(height: 12),
         Container(
-          width: double.infinity,
           decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.3),
+            color: _cardBg,
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: Colors.purpleAccent.withOpacity(0.2)),
+            border: Border.all(color: _primaryColor.withOpacity(0.2)),
           ),
           padding: EdgeInsets.all(isSmallScreen ? 16 : 20),
           child: Column(
             children: [
               Text(
-                "Explore the World with our Liquid Galaxy integration. "
-                "Navigate through directions, view places and monuments, and get real-time "
-                "Every vision data all in one place.",
+                "Explore the World with our Liquid Galaxy integration. Navigate through directions, view places and monuments, and get real-time vision data all in one place.",
                 style: TextStyle(
-                  color: Colors.white,
-                  height: 1.5,
-                  fontSize: isSmallScreen ? 14 : 16,
-                ),
+                    color: _neutralLight,
+                    height: 1.5,
+                    fontSize: isSmallScreen ? 14 : 16),
               ),
-              SizedBox(height: isSmallScreen ? 16 : 20),
+              SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   _buildFeatureIcon(
-                    LucideIcons.globe,
-                    "Location Data",
-                    isSmallScreen: isSmallScreen,
-                  ),
+                      LucideIcons.globe, "Location", Colors.greenAccent, isSmallScreen),
                   _buildFeatureIcon(
-                    LucideIcons.satellite,
-                    "Live Tracking",
-                    isSmallScreen: isSmallScreen,
-                  ),
+                      LucideIcons.satellite, "Tracking", Colors.orangeAccent, isSmallScreen),
                   _buildFeatureIcon(
-                    LucideIcons.database,
-                    "3D Models",
-                    isSmallScreen: isSmallScreen,
-                  ),
+                      LucideIcons.database, "3D Models", Colors.cyanAccent, isSmallScreen),
                 ],
               ),
             ],
@@ -442,34 +324,20 @@ class SpaceDashboard extends StatelessWidget {
     );
   }
 
-  Widget _buildFeatureIcon(IconData icon, String label, {required bool isSmallScreen}) {
+  Widget _buildFeatureIcon(
+      IconData icon, String label, Color color, bool isSmallScreen) {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.all(isSmallScreen ? 10 : 12),
+          padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Colors.purpleAccent.withOpacity(0.2),
-                Colors.blueAccent.withOpacity(0.2)
-              ],
-            ),
-            shape: BoxShape.circle,
-          ),
-          child: Icon(
-            icon,
-            color: Colors.purpleAccent,
-            size: isSmallScreen ? 18 : 20,
-          ),
+              color: color.withOpacity(0.15), shape: BoxShape.circle),
+          child: Icon(icon, color: color, size: 24),
         ),
         SizedBox(height: 6),
-        Text(
-          label,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: isSmallScreen ? 10 : 12,
-          ),
-        ),
+        Text(label,
+            style: TextStyle(
+                color: _neutralLight, fontSize: isSmallScreen ? 12 : 14)),
       ],
     );
   }
@@ -483,17 +351,17 @@ class SpaceDashboard extends StatelessWidget {
       height: screenHeight,
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
           colors: [
-            Colors.deepPurple.shade900.withOpacity(0.8),
-            Colors.black,
+            _neutralDark,
+            Color(0xFF2D1B4D).withOpacity(0.5),
+            _neutralDark,
           ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
       ),
       child: Stack(
         children: [
-          // Stars
           for (int i = 0; i < 100; i++)
             Positioned(
               left: Random().nextDouble() * screenWidth,
@@ -507,41 +375,6 @@ class SpaceDashboard extends StatelessWidget {
                 ),
               ),
             ),
-          // Nebula effects
-          Positioned(
-            right: -screenWidth * 0.25,
-            top: -screenHeight * 0.1,
-            child: Container(
-              width: screenWidth * 0.6,
-              height: screenWidth * 0.6,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: RadialGradient(
-                  colors: [
-                    Colors.purpleAccent.withOpacity(0.1),
-                    Colors.transparent,
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            left: -screenWidth * 0.2,
-            bottom: -screenHeight * 0.1,
-            child: Container(
-              width: screenWidth * 0.5,
-              height: screenWidth * 0.5,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: RadialGradient(
-                  colors: [
-                    Colors.blueAccent.withOpacity(0.08),
-                    Colors.transparent,
-                  ],
-                ),
-              ),
-            ),
-          ),
         ],
       ),
     );
